@@ -35,7 +35,7 @@ sys.path.append(str(macrodatacode_normal / Path('codegen/setup-alt-folder/')))
 from setup_alt_folder import *
 
 # Macrodata:{{{1
-def setupmacrodata():
+def setupmacrodata(docopy = False):
     """
     Run setup of local macrodata.
     Can also do by running lines of code from setup_md_all here.
@@ -57,7 +57,7 @@ def setupmacrodata():
     # rsync over macrodata rather than copy
     mdrsync = True
 
-    setup_md_all(mdc_local, mde_local, processdirs_input, processdirs_skip = processdirs_skip, extracopy_mdc = extracopy_mdc, extracopy_mde = extracopy_mde, mdrsync = mdrsync)
+    setup_md_all(mdc_local, mde_local, processdirs_input, processdirs_skip = processdirs_skip, extracopy_mdc = extracopy_mdc, extracopy_mde = extracopy_mde, mdrsync = mdrsync, docopy = docopy)
 
 
 # Functions:{{{1
