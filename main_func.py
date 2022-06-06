@@ -35,36 +35,46 @@ sys.path.append(str(macrodatacode_normal / Path('codegen/setup-alt-folder/')))
 from setup_alt_folder import *
 
 # Macrodata:{{{1
-def setupmacrodata(docopy = False):
+# Macrodata Defaults:{{{1
+# all these paths are relative
+# merge datasets that I want to copy over to code/external
+# also copies over source folders associated with these (both to code and external folders)
+processdirs_input = ['process/investing-com/', 'process/cb-dates/']
+
+# processdirs skip - don't do these even if they're specified in processdirs_input or are modules that are called in processdirs_input
+processdirs_skip = []
+
+# other folders to copy over to code folder
+extracopy_mdc = []
+
+# other folders to copy over to external folder
+extracopy_mde = []
+
+# rsync over macrodata rather than copy
+mdrsync = True
+
+
+def copymacrodatacode():
     """
-    Run setup of local macrodata.
-    Can also do by running lines of code from setup_md_all here.
+    DO NOT RUN THIS UNLESS I WANT TO UPDATE THE UNDERLYING DATA!!!
     """
-    # all these paths are relative
-    # merge datasets that I want to copy over to code/external
-    # also copies over source folders associated with these (both to code and external folders)
-    processdirs_input = ['process/investing-com/', 'process/cb-dates/']
+    docopymdall(mdc_local, mde_local, processdirs_input, processdirs_skip = processdirs_skip, extracopy_mdc = extracopy_mdc, extracopy_mde = extracopy_mde, mdrsync = mdrsync)
 
-    # processdirs skip - don't do these even if they're specified in processdirs_input or are modules that are called in processdirs_input
-    processdirs_skip = []
 
-    # other folders to copy over to code folder
-    extracopy_mdc = []
-
-    # other folders to copy over to external folder
-    extracopy_mde = []
-
-    # rsync over macrodata rather than copy
-    mdrsync = True
-
-    setup_md_all(mdc_local, mde_local, processdirs_input, processdirs_skip = processdirs_skip, extracopy_mdc = extracopy_mdc, extracopy_mde = extracopy_mde, mdrsync = mdrsync, docopy = docopy)
+def processmacrodatacode():
+    """
+    Process the local macrodata-code folders
+    """
+    doprocessmdall(mdc_local, mde_local, processdirs_input, processdirs_skip = processdirs_skip)
 
 
 # Functions:{{{1
 def full():
-    setupmacrodata()
+    copymacrodatacode()
+    processmacrodatacode()
 
 
 # Run:{{{1
 if __name__ == "__main__":
     full()
+
